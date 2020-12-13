@@ -62,3 +62,7 @@ img {
 .art-sml {
     grid-template-columns: repeat( auto-fill, minmax( calc( #{$space} * 4 ), 1fr ) );
 }
+
+.wide {
+    grid-column: span 2;
+}
