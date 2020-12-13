@@ -408,7 +408,3 @@ img {
   -ms-grid-columns: (minmax(calc( calc( 1rem + 1vw) * 4), 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(calc( calc( 1rem + 1vw) * 4), 1fr));
 }
-
-.wide {
-  grid-column: span 2;
-}
