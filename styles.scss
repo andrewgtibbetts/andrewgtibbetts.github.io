@@ -31,8 +31,22 @@ img {
     padding: calc( #{$space} * 2 );
 }
 
-.title {
-    width: calc( #{$space} * 10 );
+h1.title {
+    font-family: "Arial Narrow", Arial;
+    font-size: calc( #{$space} * 1.5 );
+    font-weight: 400;
+    white-space: nowrap;
+
+    b {
+        margin-right: -0.05em;
+        font-family: "Arial Rounded MT Bold", Arial;
+        letter-spacing: -0.05em;
+    }
+
+    i {
+        font-family: Arial;
+        font-size: 1.4rem;
+    }
 }
 
 .portrait {

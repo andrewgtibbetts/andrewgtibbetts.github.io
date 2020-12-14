@@ -371,8 +371,22 @@ img {
   padding: calc( calc( 1rem + 1vw) * 2);
 }
 
-.title {
-  width: calc( calc( 1rem + 1vw) * 10);
+h1.title {
+  font-family: "Arial Narrow", Arial;
+  font-size: calc( calc( 1rem + 1vw) * 1.5);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+h1.title b {
+  margin-right: -0.05em;
+  font-family: "Arial Rounded MT Bold", Arial;
+  letter-spacing: -0.05em;
+}
+
+h1.title i {
+  font-family: Arial;
+  font-size: 1.4rem;
 }
 
 .portrait {
