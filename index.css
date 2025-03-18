@@ -1,0 +1,123 @@
+@import 'normalize.css';
+
+:root {
+    --brand-hue: 200;
+    --text-color: oklch(1 0 0 / 0.75);
+    --bg-shadow: inset 0 0 100vmax oklch(0 0.37 0);
+    --bg-color1: hsl(var(--brand-hue) 95 5%);
+    --bg-color2: hsla(0 0 0 / 0.95);
+    --icon: "🌚";
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --text-color: oklch(0 0 0 / 0.75);
+        --bg-shadow: inset 0 0 100vmax hsla(0 100 100);
+        --bg-color1: oklch(1 0.025 var(--brand-hue));
+        --bg-color2: hsla(0 0 50 / 0.05);
+        --icon: "🌝";
+    }
+}
+
+[data-theme="light"] {
+    --text-color: oklch(0 0 0 / 0.75);
+    --bg-shadow: inset 0 0 100vmax hsla(0 100 100);
+    --bg-color1: oklch(1 0.025 var(--brand-hue));
+    --bg-color2: hsla(0 0 50 / 0.05);
+    --icon: "🌝";
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: color-mix(in oklch, var(--text-color) 45%, oklch(1 0.25 var(--brand-hue)));
+}
+
+p {
+    text-wrap: balance;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 4rem 7fr 4fr 4rem;
+    grid-template-areas:    "nav1 main aside gutter"
+                            "nav2 main aside gutter";
+    margin: 0;
+    height: 100vh;
+    padding: calc(0.75rem + 0.75vw);
+    color: var(--text-color);
+    background-image: radial-gradient(ellipse at 25% 20%, var(--bg-color1), var(--bg-color2));
+    box-shadow: var(--bg-shadow);
+}
+
+.nav1 {
+    grid-area: nav1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+
+    a {
+        display: block;
+        aspect-ratio: 1;
+        padding: 1rem;
+        color: color-mix(in oklch, var(--text-color) 45%, oklch(1 0.25 var(--brand-hue)));
+    
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+main {
+    grid-area: main;
+    padding: calc(1rem + 4vw);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.mode-switcher {
+    grid-area: gutter;
+    place-self: end;
+    position: relative;
+    display: grid;
+    place-content: center;
+    aspect-ratio: 1;
+    width: 100%;
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+
+    &::before {
+        content: var(--icon);
+        position: absolute;
+    }
+    
+    select {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 1rem;
+        opacity: 0;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &:hover {
+        background-color: var(--secondary-color);
+    }
+}
+
