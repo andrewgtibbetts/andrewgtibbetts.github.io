@@ -5,7 +5,7 @@
     --text-color: oklch(1 0 0 / 0.75);
     --bg-shadow: inset 0 0 100vmax oklch(0 0.37 0);
     --bg-color1: hsl(var(--brand-hue) 95 5%);
-    --bg-color2: hsla(0 0 0 / 0.95);
+    --bg-color2: hsla(0 0 0 / 0.9);
     --icon: "🌚";
 }
 
@@ -14,7 +14,7 @@
         --text-color: oklch(0 0 0 / 0.75);
         --bg-shadow: inset 0 0 100vmax hsla(0 100 100);
         --bg-color1: oklch(1 0.025 var(--brand-hue));
-        --bg-color2: hsla(0 0 50 / 0.05);
+        --bg-color2: hsla(0 0 50 / 0.1);
         --icon: "🌝";
     }
 }
@@ -23,7 +23,7 @@
     --text-color: oklch(0 0 0 / 0.75);
     --bg-shadow: inset 0 0 100vmax hsla(0 100 100);
     --bg-color1: oklch(1 0.025 var(--brand-hue));
-    --bg-color2: hsla(0 0 50 / 0.05);
+    --bg-color2: hsla(0 0 50 / 0.1);
     --icon: "🌝";
 }
 
@@ -31,28 +31,41 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+}
+
+html {
+    background-image: radial-gradient(ellipse at 25% 20%, var(--bg-color1), var(--bg-color2));
+}
+
 a {
     color: color-mix(in oklch, var(--text-color) 45%, oklch(1 0.25 var(--brand-hue)));
 }
 
 p {
+    margin: 0;
+    max-width: 40ch;
+    font-size: clamp(1rem, 1vw, 2rem);
+    line-height: 1.5;
     text-wrap: balance;
 }
 
 body {
     display: grid;
-    grid-template-columns: 4rem 7fr 4fr 4rem;
-    grid-template-areas:    "nav1 main aside gutter"
-                            "nav2 main aside gutter";
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:    "nav1 main main"
+                            "nav2 . switcher";
+    gap: calc(1rem + 3vw);
     margin: 0;
-    height: 100vh;
-    padding: calc(0.75rem + 0.75vw);
+    padding: calc(2rem + 1vw);
     color: var(--text-color);
-    background-image: radial-gradient(ellipse at 25% 20%, var(--bg-color1), var(--bg-color2));
     box-shadow: var(--bg-shadow);
 }
 
-.nav1 {
+ul.nav1 {
     grid-area: nav1;
     margin: 0;
     padding: 0;
@@ -62,8 +75,8 @@ body {
 
     a {
         display: block;
+        width: max(1.5rem, calc(1rem + 1vw));
         aspect-ratio: 1;
-        padding: 1rem;
         color: color-mix(in oklch, var(--text-color) 45%, oklch(1 0.25 var(--brand-hue)));
     
         svg {
@@ -75,24 +88,24 @@ body {
 
 main {
     grid-area: main;
-    padding: calc(1rem + 4vw);
+    margin: calc(2rem + 1vw + max(1.5rem, calc(1rem + 1vw))) calc(1rem + 2vw);
 }
 
 h1 {
-    margin: 0;
-    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-size: clamp(1.5rem, 1.5vw, 3rem);
+    font-weight: 100;
 }
 
-.mode-switcher {
-    grid-area: gutter;
+label.mode-switcher {
+    grid-area: switcher;
     place-self: end;
     position: relative;
     display: grid;
     place-content: center;
     aspect-ratio: 1;
-    width: 100%;
-    font-size: 2rem;
-    padding: 1rem;
+    width: calc(1rem + 1vw);
+    font-size: max(1.5rem, calc(1rem + 1vw));
     border-radius: 9999px;
     cursor: pointer;
 

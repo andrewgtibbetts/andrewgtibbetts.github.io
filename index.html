@@ -18,13 +18,12 @@
     </ul>
     <main>
         <h1>Andrew Tibbetts</h1>
-        <p>
-            Hi. I'm Andrew Tibbetts.
-            <br>
-            I'm a web designer and developer working in enterprise UX.
-            <br>
-            I might put more here, I might not...
-        </p>
+        <p>Hi. I'm Andrew.</p>
+        <p>I'm a web UI designer and developer working as a design engineer in enterprise UX.</p>
+        <p>The little circle you are reading this through is a gimmick to take you away from your usually programmed thought patterns and perhaps, if the moon is in the right phase, and the wind is blowing at just the right velocity, you will find yourself becoming slightly, nay, utterly enamored with the words that flow forth. The stories I tell are a rich tapestry, woven from the threads of my own experience and the experiences of those who have come before me. They are tales of wonder, of awe, of the mundane and the sublime. They are the whispers of the universe, echoing through the chambers of my mind, and spilling forth onto the page in a mad dance.</p>
+        <p>As you read, you may find yourself becoming lost in labyrinthine corridors, wandering and stumbling upon hidden treasures. You may find yourself becoming entranced by the rhythm of the language, the cadence. You may find yourself becoming hypnotized, your eyelids growing heavy, your breathing slowing, as the words wash over you like a soothing balm.</p>
+        <p>And when you finally emerge from the trance-like state, you may find that you have been changed, that you have been transformed. You may find that you see the world in a different light, that the colors are more vivid, the sounds are more clear, and the people are more dear. You may find that you have been given a glimpse into the very fabric of reality, and that you have been changed.</p>
+        <p>Or not. Or you skipped to the end. Thanks. Have fun.</p>
     </main>
     <label class="mode-switcher">
         <select name="theme-toggle" id="theme-toggle">
@@ -44,6 +43,49 @@
             localStorage.setItem('theme', toggle.value);
             document.documentElement.setAttribute('data-theme', toggle.value);
         });
+
+        function fadeInit() {
+            let fadeTimeout;
+
+            function fadeOut() {
+                console.log('fade out');
+                document.body.style.transition = 'opacity 10s';
+                document.body.style.opacity = '0';
+            }
+
+            function resetFade() {
+                console.log('reset fade');
+                clearTimeout(fadeTimeout);
+                document.body.style.transition = 'none';
+                document.body.style.opacity = '1';
+                fadeTimeout = setTimeout(fadeOut, 0);
+            }
+
+            document.addEventListener('mousemove', resetFade, true);
+
+            fadeTimeout = fadeOut();
+        }
+        // fadeInit();
+        const windowBox = document.createElement('div');
+        windowBox.id = 'window';
+        windowBox.style.width = '160px';
+        windowBox.style.height = '90px';
+        windowBox.style.borderRadius = '50%';
+        document.body.appendChild(windowBox);
+
+        function updateWindow(event) {
+            const windowRect = windowBox.getBoundingClientRect();
+            const mouseRect = document.body.getBoundingClientRect();
+            const left = event.clientX - (windowRect.width / 2);
+            const top = event.clientY - (windowRect.height / 2);
+            windowBox.style.left = `${left}px`;
+            windowBox.style.top = `${top}px`;
+            document.body.style.clipPath = `circle(${windowRect.width / 2}px at ${left + windowRect.width / 2}px ${top + windowRect.height / 2}px)`;
+        }
+
+        document.addEventListener('mousemove', updateWindow, true);
+        updateWindow({clientX: window.innerWidth / 2, clientY: window.innerHeight / 2});
     </script>
 </body>
 </html>
+
