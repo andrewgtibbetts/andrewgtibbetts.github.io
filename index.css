@@ -32,7 +32,8 @@
 }
 
 html,
-body {
+body,
+.grid {
     height: 100%;
 }
 
@@ -48,21 +49,25 @@ p {
     margin: 0;
     max-width: 40ch;
     font-size: clamp(1rem, 1vw, 2rem);
+    font-weight: 300;
     line-height: 1.5;
     text-wrap: balance;
 }
 
 body {
+    margin: 0;
+    padding: calc(2rem + 1vw);
+    color: var(--text-color);
+    box-shadow: var(--bg-shadow);
+}
+
+div.grid {
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 1fr auto;
     grid-template-areas:    "nav1 main main"
                             "nav2 . switcher";
     gap: calc(1rem + 3vw);
-    margin: 0;
-    padding: calc(2rem + 1vw);
-    color: var(--text-color);
-    box-shadow: var(--bg-shadow);
 }
 
 ul.nav1 {
@@ -89,6 +94,27 @@ ul.nav1 {
 main {
     grid-area: main;
     margin: calc(2rem + 1vw + max(1.5rem, calc(1rem + 1vw))) calc(1rem + 2vw);
+    container: main / inline-size;
+
+    .badge {
+        display: flex;
+        align-items: start;
+        gap: calc(1rem + 1vw);
+    }
+
+    img {
+        display: block;
+        width: clamp(8.5rem, 8.5vw, 17rem);
+        aspect-ratio: 1;
+        border: 1px solid #bbbbbb80;
+        border-radius: 2px;
+    }
+
+    @container main (inline-size < 32rem) {
+        .badge {
+            flex-direction: column;
+        }
+    }
 }
 
 h1 {
@@ -133,4 +159,5 @@ label.mode-switcher {
         background-color: var(--secondary-color);
     }
 }
+
 
