@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Chicago-Area Democratic Primary — Candidate Report</title>
+  <style>
+    /* ───────── Reset & Variables ───────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:    #1565c0;
+      --blue-lt: #e3f2fd;
+      --red:     #c62828;
+      --red-lt:  #ffebee;
+      --purple:  #6a1b9a;
+      --purple-lt:#f3e5f5;
+      --green:   #2e7d32;
+      --green-lt:#e8f5e9;
+      --amber:   #e65100;
+      --amber-lt:#fff3e0;
+      --gray:    #455a64;
+      --gray-lt: #eceff1;
+      --bg:      #f5f7fa;
+      --card-bg: #ffffff;
+      --text:    #212121;
+      --text-sec:#546e7a;
+      --shadow:  0 2px 2px rgba(0,0,0,.08);
+      --radius:  10px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ───────── Header ───────── */
+    header {
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #c62828, #fff, #1565c0);
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -.5px;
+      margin-bottom: .35rem;
+    }
+    header p {
+      font-size: 1.05rem;
+      opacity: .88;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ───────── Sticky Nav ───────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .25rem .5rem;
+      padding: .6rem 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--blue);
+      font-weight: 600;
+      font-size: .85rem;
+      padding: .3rem .7rem;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    nav a:hover, nav a:focus { background: var(--blue); color: #fff; }
+
+    /* ───────── Legend ───────── */
+    .legend {
+      max-width: 1100px;
+      margin: 1.5rem auto .5rem;
+      padding: 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+    }
+    .legend span {
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 20px;
+    }
+    .legend .l-religion  { background: var(--purple-lt); color: var(--purple); }
+    .legend .l-scandal   { background: var(--red-lt);    color: var(--red); }
+    .legend .l-endorsement{background: var(--green-lt);  color: var(--green); }
+    .legend .l-info      { background: var(--blue-lt);   color: var(--blue); }
+    .legend .l-caution   { background: var(--amber-lt);  color: var(--amber); }
+
+    /* ───────── Sections ───────── */
+    .race-section {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .race-section h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--blue);
+      border-bottom: 3px solid var(--blue);
+      padding-bottom: .4rem;
+      margin-bottom: 1.2rem;
+    }
+    .race-section > p.race-note {
+      color: var(--text-sec);
+      font-size: .92rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ───────── Card Grid ───────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ───────── Candidate Card ───────── */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      box-shadow: 0 6px 10px rgba(0,0,0,.12);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.1rem .6rem;
+    }
+    .card-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid var(--blue-lt);
+      flex-shrink: 0;
+      background: var(--gray-lt);
+    }
+    .avatar-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #90caf9, #1565c0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .card-identity h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .card-identity .role {
+      font-size: .82rem;
+      line-height: 1.2;
+      color: var(--text-sec);
+      font-weight: 500;
+    }
+    .card-body {
+      padding: 0 1.1rem .7rem;
+    }
+    .card-body p {
+      font-size: .88rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* ───────── Collapsible Descriptions ───────── */
+    details.card-body {
+      padding: 0 1.1rem .7rem;
+    }
+    details.card-body summary {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.card-body summary::-webkit-details-marker { display: none; }
+    details.card-body summary::before {
+      content: '▶ ';
+      font-size: .65rem;
+      display: inline-block;
+      transition: transform .2s ease;
+      margin-right: .25rem;
+      position: relative;
+      top: -1px;
+    }
+    details[open].card-body summary::before {
+      transform: rotate(90deg);
+    }
+    details[open].card-body p {
+      margin-top: .4rem;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      padding: .5rem 1.1rem 1rem;
+    }
+    .tag {
+      font-size: .72rem;
+      font-weight: 600;
+      padding: .2rem .55rem;
+      border-radius: 20px;
+    }
+    .tag-religion   { background: var(--purple-lt); color: var(--purple); }
+    .tag-scandal    { background: var(--red-lt);    color: var(--red); }
+    .tag-endorsement{ background: var(--green-lt);  color: var(--green); }
+    .tag-info       { background: var(--blue-lt);   color: var(--blue); }
+    .tag-caution    { background: var(--amber-lt);  color: var(--amber); }
+
+    /* ───────── Footer ───────── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .8rem;
+      color: var(--text-sec);
+      border-top: 1px solid #ddd;
+      margin-top: 2rem;
+    }
+
+    /* ───────── Responsive ───────── */
+    @media (max-width: 600px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1rem 1.5rem; }
+    }
+
+    /* ───────── Print ───────── */
+    @media print {
+      nav { display: none; }
+      header { background: #1565c0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+  <h1>🗳️ 2026 Chicago-Area Democratic Primary</h1>
+  <p>Candidate Report — Summaries, Photos, Scandals &amp; Religious Affiliations</p>
+</header>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <a href="#senator">U.S. Senator</a>
+  <a href="#comptroller">State Comptroller</a>
+  <a href="#cd8">8th Congressional</a>
+  <a href="#scc8">8th State Central Cmte</a>
+  <a href="#clerk">Kane County Clerk</a>
+  <a href="#sheriff">Kane County Sheriff</a>
+  <a href="#treasurer">Kane County Treasurer</a>
+</nav>
+
+<!-- ═══════════ LEGEND ═══════════ -->
+<div class="legend">
+  <span class="l-info">ℹ️ Key Info</span>
+  <span class="l-endorsement">✅ Endorsement</span>
+  <span class="l-caution">🔶 Caution</span>
+  <span class="l-scandal">⚠️ Scandal / Controversy</span>
+  <span class="l-religion">🕊️ Religion</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     1 · U.S. SENATOR
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="senator">
+  <h2>1 · U.S. Senator (Illinois)</h2>
+  <p class="race-note">Open seat — Democratic primary to determine the party's nominee for the 2026 general election.</p>
+  <div class="card-grid">
+
+    <!-- Juliana Stratton -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLsjG6Y5Lm5lkfc0TW53TOZUDGem67WXSlWQ&s" alt="Juliana Stratton" onerror="this.outerHTML='<div class=avatar-placeholder>JS</div>'">
+        <div class="card-identity">
+          <h3>Juliana Stratton</h3>
+          <span class="role">48th Lieutenant Governor of Illinois (since 2019)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Juliana Stratton is Illinois' lieutenant governor, in office since 2019 after a term in the state House representing Chicago's 5th District. A progressive aligned with Gov. Pritzker, she supports Medicare for All, a $25 federal minimum wage, higher taxes on millionaires to fund middle-class tax relief, stronger gun laws, restoration of abortion protections, and abolishing ICE. She is the first African-American woman to hold the position of Lt. Governor in Illinois.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Religion not publicly specified</span>
+        <span class="tag tag-endorsement">✅ Gov. JB Pritzker</span>
+        <span class="tag tag-endorsement">✅ Sen. Tammy Duckworth</span>
+        <span class="tag tag-endorsement">✅ Sen. Elizabeth Warren</span>
+        <span class="tag tag-endorsement">✅ EMILY's List</span>
+        <span class="tag tag-endorsement">✅ End Citizens United</span>
+        <span class="tag tag-endorsement">✅ IL Nurses Association</span>
+        <span class="tag tag-info">ℹ️ First Black woman Lt. Gov. of Illinois</span>
+      </div>
+    </div>
+
+    <!-- Robin Kelly -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtguNfihGVgeQa9MypYXmjWG4yd4HN0Nx5aw&s" alt="Robin Kelly" onerror="this.outerHTML='<div class=avatar-placeholder>RK</div>'">
+        <div class="card-identity">
+          <h3>Robin Kelly</h3>
+          <span class="role">U.S. Representative (IL-2) since 2013</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Robin Kelly has represented Illinois' 2nd Congressional District since 2013 and previously served in the Illinois House and as chief of staff to the state treasurer. She emphasizes gun-violence prevention, raising taxes on billionaires, a $17 federal minimum wage, and Medicare for All, alongside a hard line against Trump-era immigration policies, including calls to dismantle and rebuild ICE and related agencies.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Nondenominational Protestant</span>
+        <span class="tag tag-endorsement">✅ Congressional Black Caucus PAC</span>
+        <span class="tag tag-endorsement">✅ BradyPAC</span>
+        <span class="tag tag-endorsement">✅ Sen. Chris Murphy</span>
+        <span class="tag tag-info">ℹ️ Gun Violence Prevention Advocate</span>
+        <span class="tag tag-info">ℹ️ Former IL House Member &amp; State Treasurer Chief of Staff</span>
+      </div>
+    </div>
+
+    <!-- Kevin Ryan -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="kevin-ryan.png" alt="Kevin Ryan" onerror="this.outerHTML='<div class=avatar-placeholder>KR</div>'">
+        <div class="card-identity">
+          <h3>Kevin Ryan</h3>
+          <span class="role">CPS Teacher &amp; USMC Reserve Infantry Officer</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Kevin Ryan is a Chicago Public Schools teacher and U.S. Marine Corps Reserve infantry officer who served in Afghanistan. His campaign centers on amending the Constitution to cap campaign spending and eliminate Super PACs, banning stock trading by members of Congress, enacting Medicare for All, raising wages, and abolishing ICE and the death penalty. He frames himself as an anti-corruption reformer taking on "legalized bribery" in politics.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Secular / Nonreligious</span>
+        <span class="tag tag-endorsement">✅ Center for Freethought Equality</span>
+        <span class="tag tag-info">ℹ️ USMC Reserve — Afghanistan Veteran</span>
+        <span class="tag tag-info">ℹ️ Anti-Corruption / Campaign Finance Reform</span>
+        <span class="tag tag-info">ℹ️ Medicare for All / Abolish ICE</span>
+      </div>
+    </div>
+
+    <!-- Awisi A. Bustos -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="awisi-bustos.png" alt="Awisi A. Bustos" onerror="this.outerHTML='<div class=avatar-placeholder>AB</div>'">
+        <div class="card-identity">
+          <h3>Awisi A. Bustos</h3>
+          <span class="role">Former CEO, IL Alliance of Boys &amp; Girls Clubs</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Awisi Bustos is a former CEO of the Illinois Alliance of Boys &amp; Girls Clubs and a former senior policy adviser at the Illinois Department of Human Services. Her priorities include more funding for public colleges, trades, and apprenticeships, tougher ethics and anti-corruption laws, universal broadband, expanded STEM education, better family-leave policies, and lower prescription-drug prices. She is framed mainly as a social-services and education-focused reformer.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Social Services &amp; Education Focus</span>
+        <span class="tag tag-info">ℹ️ Former Senior Policy Adviser, IL DHS</span>
+        <span class="tag tag-caution">🔶 No major endorsements or controversies reported</span>
+      </div>
+    </div>
+
+    <!-- Raja Krishnamoorthi -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://chorus-production-cst-web.s3.us-east-1.amazonaws.com/brightspot/69/ac/19387f0d518dd7142545104b8e09/3a3d439f9b7c23239c8ba9f01ca00269" alt="Raja Krishnamoorthi" onerror="this.outerHTML='<div class=avatar-placeholder>RK</div>'">
+        <div class="card-identity">
+          <h3>Raja Krishnamoorthi</h3>
+          <span class="role">U.S. Representative (IL-8) since 2017 — Running for Senate</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Raja Krishnamoorthi has represented Illinois' 8th Congressional District since 2017 and sits on the House Intelligence Committee and the China competition select committee. His priorities include free school lunches nationwide, reversing cuts to SNAP and Medicaid, expanding child tax credits, and helping first-time homebuyers, while championing bans on stock trading by members of Congress plus term and age limits. He talks about "abolishing Trump's ICE" by imposing body cameras, IDs, warrant limits, and accountability rules rather than eliminating the agency outright. He is the first Indian-American elected to Congress from Illinois.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Hindu</span>
+        <span class="tag tag-scandal">⚠️ $90K+ from Trump/MAGA-aligned donors</span>
+        <span class="tag tag-scandal">⚠️ Donations from Palantir (ICE contractor)</span>
+        <span class="tag tag-scandal">⚠️ Heritage Foundation-linked donor ties</span>
+        <span class="tag tag-info">ℹ️ First Indian-American from IL in Congress</span>
+        <span class="tag tag-caution">🔶 Union &amp; out-of-state endorsements (not from IL members)</span>
+      </div>
+    </div>
+
+    <!-- Sean Brown -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRud55FT6JDA2GhZ_cjzeGCm1sI2HOCqgRog&s" alt="Sean Brown" onerror="this.outerHTML='<div class=avatar-placeholder>SB</div>'">
+        <div class="card-identity">
+          <h3>Sean Brown</h3>
+          <span class="role">Attorney &amp; Community Advocate, South Side Chicago</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Sean Brown is a South Side Chicago attorney and community advocate. He supports universal healthcare, comprehensive immigration reform, tuition-free public colleges and universities, and a national firearm registry. Beyond his issue list in CBS and candidate-guide coverage, there is limited reporting on endorsements or conflicts, suggesting a lower-profile, movement-progressive campaign.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Universal Healthcare &amp; Tuition-Free College</span>
+        <span class="tag tag-info">ℹ️ National Firearm Registry Supporter</span>
+        <span class="tag tag-caution">🔶 Limited independent media coverage</span>
+      </div>
+    </div>
+
+    <!-- Jonathan Dean -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="jonathan-dean.png" alt="Jonathan Dean" onerror="this.outerHTML='<div class=avatar-placeholder>JD</div>'">
+        <div class="card-identity">
+          <h3>Jonathan Dean</h3>
+          <span class="role">Solar-Energy Entrepreneur &amp; Attorney</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Jonathan Dean is a solar-energy entrepreneur, attorney, and advocate for survivors of childhood sexual abuse. His platform calls for a $20 minimum wage, more affordable housing and home-buyer assistance, higher taxes on billionaires, Medicare for All, and rapid expansion of renewable energy. Public sources do not show major institutional endorsements or significant controversies; his profile is that of a climate-focused economic progressive.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Climate / Renewable Energy Focus</span>
+        <span class="tag tag-info">ℹ️ Childhood Sexual Abuse Survivor Advocate</span>
+        <span class="tag tag-caution">🔶 No major endorsements reported</span>
+      </div>
+    </div>
+
+    <!-- Steve Botsford Jr. -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeObf7PYXTulP1QXnv6Mcamd3Rf-0IDcEimw" alt="Steve Botsford Jr." onerror="this.outerHTML='<div class=avatar-placeholder>SB</div>'">
+        <div class="card-identity">
+          <h3>Steve Botsford Jr.</h3>
+          <span class="role">Real-Estate Investor &amp; Former Congressional Staffer</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Steve Botsford Jr. is a real-estate investor and former congressional staffer (for Rep. Tony Cárdenas) who later earned graduate degrees in applied economics and business and ran for Chicago City Council in 2023. He emphasizes lowering credit-card interest rates, breaking up monopolies, capping prescription-drug prices, expanding free school meals, and protecting Social Security and Medicare, plus banning congressional stock trading and using nonpartisan redistricting commissions.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Former Staffer for Rep. Tony Cárdenas</span>
+        <span class="tag tag-info">ℹ️ Technocratic / Reform-Oriented Platform</span>
+        <span class="tag tag-caution">🔶 No widely reported major endorsements</span>
+      </div>
+    </div>
+
+    <!-- Bryan Maxwell -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://chorus-production-cst-web.s3.us-east-1.amazonaws.com/brightspot/fc/6d/8537703c4a0a9b82dffd4640e2c1/bryan-maxwell.jpg" alt="Bryan Maxwell" onerror="this.outerHTML='<div class=avatar-placeholder>BM</div>'">
+        <div class="card-identity">
+          <h3>Bryan Maxwell</h3>
+          <span class="role">Agricultural Engineer, Writer &amp; Musician</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Bryan Maxwell is an agricultural engineer, writer, and musician running from the left. His stated priorities include ending U.S. support for Israel, enacting Medicare for All, significantly increasing taxes on billionaires, aggressive climate action, and increased investment in rural communities. Outside his own materials and brief CBS/ballot summaries, there is little independent reporting or endorsement tracking on his campaign.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ End U.S. Support for Israel</span>
+        <span class="tag tag-info">ℹ️ Climate &amp; Rural Investment Focus</span>
+        <span class="tag tag-caution">🔶 Limited independent media coverage</span>
+      </div>
+    </div>
+
+    <!-- Christopher Swann -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="christopher-swann.png" alt="Christopher Swann" onerror="this.outerHTML='<div class=avatar-placeholder>CS</div>'">
+        <div class="card-identity">
+          <h3>Christopher Swann</h3>
+          <span class="role">Deacon &amp; Senior Program Manager, Feeding America</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Christopher Swann is a deacon and senior program manager at the hunger-relief nonprofit Feeding America. He emphasizes support for Palestinian independence and more humanitarian aid in Gaza, alongside guaranteed income for poor families, raising the minimum wage above $17, Medicare for All, and abolishing ICE. His campaign has drawn attention mainly for its strong pro-Palestinian stance.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Christian (Deacon)</span>
+        <span class="tag tag-scandal">⚠️ Pro-Palestinian stance (divisive)</span>
+        <span class="tag tag-info">ℹ️ Feeding America — Hunger Relief Advocate</span>
+        <span class="tag tag-info">ℹ️ Guaranteed Income / Abolish ICE</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     2 · STATE COMPTROLLER
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="comptroller">
+  <h2>2 · State Comptroller</h2>
+  <p class="race-note">Democratic primary for Illinois State Comptroller — the state's chief fiscal and accountability officer.</p>
+  <div class="card-grid">
+
+    <!-- Karina Villa -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Karina_Villa_at_a_rally_%28cropped%29.jpg/330px-Karina_Villa_at_a_rally_%28cropped%29.jpg" alt="Karina Villa" onerror="this.outerHTML='<div class=avatar-placeholder>KV</div>'">
+        <div class="card-identity">
+          <h3>Karina Villa</h3>
+          <span class="role">Illinois State Senator (25th District)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Karina Villa is a Democratic state senator from the western suburbs, previously a state representative and school social worker/school-board member. In Springfield she has focused on education funding, mental-health services, and reproductive rights. In the comptroller race she argues that the state's books should be managed to protect social services and working families rather than austerity. Recent coverage notes her as one of several credible Democratic contenders.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Latina</span>
+        <span class="tag tag-info">ℹ️ Former State Rep → State Senator</span>
+        <span class="tag tag-info">ℹ️ Education &amp; Mental Health Focus</span>
+      </div>
+    </div>
+
+    <!-- Holly Kim -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="holly-kim.jpg" alt="Holly Kim" onerror="this.outerHTML='<div class=avatar-placeholder>HK</div>'">
+        <div class="card-identity">
+          <h3>Holly Kim</h3>
+          <span class="role">Lake County Treasurer</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Holly Kim is the elected treasurer of Lake County and a former Mundelein village trustee. In office she has pushed for more transparent financial reporting, community outreach, and small-dollar investing programs. She campaigns for comptroller on modernizing state finances, improving accessibility of financial data, and safeguarding taxpayer money. No major scandals have been reported, and her support is rooted in local and progressive Democratic circles.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Hands-on County Treasurer Experience</span>
+        <span class="tag tag-info">ℹ️ Former Mundelein Village Trustee</span>
+        <span class="tag tag-info">ℹ️ Local &amp; Progressive Democratic Support</span>
+      </div>
+    </div>
+
+    <!-- Margaret Croke -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSME9f9kqPD9kaknZyb126vobIRWDqALDM3SQ&s" alt="Margaret Croke" onerror="this.outerHTML='<div class=avatar-placeholder>MC</div>'">
+        <div class="card-identity">
+          <h3>Margaret Croke</h3>
+          <span class="role">State Representative, Chicago (since 2020)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Margaret Croke is a Democratic state representative from Chicago, first elected in 2020, who has worked on issues like childcare affordability, reproductive rights, and consumer protection. In the comptroller race she stresses aligning fiscal management with Democratic priorities such as protecting social services and families, while also emphasizing efficient and transparent use of funds. No major endorsements or controversies reported for this bid.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Childcare &amp; Consumer Protection Advocate</span>
+        <span class="tag tag-info">ℹ️ First Elected 2020</span>
+      </div>
+    </div>
+
+    <!-- Stephanie A. Kifowit -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://ilhousedems.com/wp-content/uploads/2017/01/Kifowit_S.jpg" alt="Stephanie Kifowit" onerror="this.outerHTML='<div class=avatar-placeholder>SK</div>'">
+        <div class="card-identity">
+          <h3>Stephanie A. Kifowit</h3>
+          <span class="role">State Representative (84th District)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Stephanie Kifowit is a Marine Corps veteran and Democratic state representative from Aurora serving since 2013. Her legislative work has emphasized veterans' services, government transparency, and property-tax issues, and she brands herself as a fiscally careful "watchdog" for taxpayers in seeking the comptroller's office. She previously served as an alderman in Aurora.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ USMC Veteran (Corporal)</span>
+        <span class="tag tag-info">ℹ️ Former Aurora Alderman</span>
+        <span class="tag tag-info">ℹ️ "Watchdog" Fiscal Brand</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     3 · 8TH CONGRESSIONAL DISTRICT
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="cd8">
+  <h2>3 · 8th Congressional District</h2>
+  <p class="race-note">Northwestern suburbs of Chicago — Open seat Democratic primary for U.S. House (Rep. Krishnamoorthi running for U.S. Senate).</p>
+  <div class="card-grid">
+
+    <!-- Junaid Ahmed -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://justicedemocrats.com/wp-content/uploads/2025/12/JD26_JunaidAhmed_IL08_1476x1204_1.jpg" alt="Junaid Ahmed" onerror="this.outerHTML='<div class=avatar-placeholder>JA</div>'">
+        <div class="card-identity">
+          <h3>Junaid Ahmed</h3>
+          <span class="role">Progressive Challenger — Previously ran vs. Krishnamoorthi</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Junaid Ahmed previously challenged Krishnamoorthi from the left in IL-08, campaigning on Medicare for All, a Green New Deal-style climate agenda, and stronger campaign-finance reform. His current run continues that progressive critique of establishment Democrats, arguing that corporate contributions distort policy. He has drawn support from some local left organizations but lacks the institutional backing of larger unions or party leaders. There have been intra-party tensions but no major personal scandals widely reported.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-scandal">⚠️ Intra-party tensions with establishment Dems</span>
+        <span class="tag tag-info">ℹ️ Medicare for All / Green New Deal</span>
+        <span class="tag tag-info">ℹ️ Campaign Finance Reform Focus</span>
+      </div>
+    </div>
+
+    <!-- Yasmeen Bankole -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSI2tuQsEutCPSTBWLZCfpz6wbouUMEWj7Xw&s" alt="Yasmeen Bankole" onerror="this.outerHTML='<div class=avatar-placeholder>YB</div>'">
+        <div class="card-identity">
+          <h3>Yasmeen Bankole</h3>
+          <span class="role">Democratic Candidate for IL-8</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Yasmeen Bankole is listed as a Democratic contender in IL-08, but public, independently verified information on her professional background and issue priorities is sparse. Available references portray her generally as a progressive activist or local organizer; there are no well-documented major endorsements or controversies in statewide coverage.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited independently verified information</span>
+        <span class="tag tag-info">ℹ️ Progressive Activist / Local Organizer</span>
+      </div>
+    </div>
+
+    <!-- Kevin B. Morrison -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://assets2.cbsnewsstatic.com/hub/i/r/2025/05/12/a801c7ac-7304-4fb8-8c4b-72dd77917a9d/thumbnail/640x360/80501c7c6523a272f1d1d8e888440628/kevin-morrison.jpg" alt="Kevin B. Morrison" onerror="this.outerHTML='<div class=avatar-placeholder>KM</div>'">
+        <div class="card-identity">
+          <h3>Kevin B. Morrison</h3>
+          <span class="role">Cook County Commissioner (15th District)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Kevin B. Morrison is a Cook County commissioner representing a northwest suburban district and was the first openly gay member of the county board. His record centers on mental-health funding, property-tax fairness, and LGBTQ+ protections, and he pitches himself for Congress as a pro-labor, pro-equity suburban official focused on services that touch families directly. Recent reporting notes his growing prominence in suburban Democratic politics but does not identify major scandals.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ First Openly Gay Cook County Commissioner</span>
+        <span class="tag tag-info">ℹ️ Pro-Labor / Pro-Equity</span>
+        <span class="tag tag-info">ℹ️ LGBTQ+ Equality Advocate</span>
+      </div>
+    </div>
+
+    <!-- Dan Tully -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://s3.amazonaws.com/ballotpedia-api4/files/thumbs/200/300/Dan_Tully_2026.jpg" alt="Dan Tully" onerror="this.outerHTML='<div class=avatar-placeholder>DT</div>'">
+        <div class="card-identity">
+          <h3>Dan Tully</h3>
+          <span class="role">Attorney &amp; Democratic Activist</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Dan Tully is an attorney and Democratic activist appearing in IL-08 candidate lists with references to legal practice and civic involvement. Public sources do not provide a detailed, consensus summary of his recent policy agenda; broadly, he is described as a mainstream Democrat with an emphasis on public safety and rule of law, but without widely reported marquee endorsements or controversies.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited detailed policy coverage</span>
+        <span class="tag tag-info">ℹ️ Public Safety &amp; Rule of Law Focus</span>
+      </div>
+    </div>
+
+    <!-- Ryan Vetticad -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="ryan-vetticad.png" alt="Ryan Vetticad" onerror="this.outerHTML='<div class=avatar-placeholder>RV</div>'">
+        <div class="card-identity">
+          <h3>Ryan Vetticad</h3>
+          <span class="role">Democratic Candidate for IL-8</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Ryan Vetticad is identified in ballot information as a Democratic candidate, but current mainstream coverage provides very limited detail about his current professional role or specific policy platform. In the absence of robust independent reporting, he is running as a Democratic challenger in IL-08 with no widely documented endorsements or controversies.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Very limited public information available</span>
+      </div>
+    </div>
+
+    <!-- Neil Khot -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZBt4chWDcO0wX_OJedfzsZe8Aryj7ylMGA&s" alt="Neil Khot" onerror="this.outerHTML='<div class=avatar-placeholder>NK</div>'">
+        <div class="card-identity">
+          <h3>Neil Khot</h3>
+          <span class="role">Democratic Candidate for IL-8</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Neil Khot appears on the ballot as a Democratic candidate for IL-08, but as of now there is little or no mainstream media or Ballotpedia-style coverage detailing his current or most recent role, full platform, or endorsements. The lack of independent reporting suggests a low-profile campaign; any detailed claims beyond basic biographical notes from his own materials should be treated with caution.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Very limited public information available</span>
+      </div>
+    </div>
+
+    <!-- Sanjyot Dunung -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShNLTIUEjBXuHXn0cFZ730gW7PI5Nabttz2Q&s" alt="Sanjyot Dunung" onerror="this.outerHTML='<div class=avatar-placeholder>SD</div>'">
+        <div class="card-identity">
+          <h3>Sanjyot Dunung</h3>
+          <span class="role">International Business Author &amp; Entrepreneur</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Sanjyot Dunung appears in candidate lists as a Democratic entrant with a background in international business and authorship on globalization and ethics. Public election coverage offers only brief references; she emphasizes ethical capitalism, human rights, and global economic literacy, but there is not yet a detailed, independently synthesized platform or endorsement list in mainstream outlets.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited mainstream coverage</span>
+        <span class="tag tag-info">ℹ️ Ethical Capitalism &amp; Human Rights Focus</span>
+      </div>
+    </div>
+
+    <!-- Melissa L. Bean -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://image.jewishinsider.com/wp-content/uploads/2026/01/23113955/melissa_bean_jpg.jpg" alt="Melissa Bean" onerror="this.outerHTML='<div class=avatar-placeholder>MB</div>'">
+        <div class="card-identity">
+          <h3>Melissa L. Bean</h3>
+          <span class="role">Former U.S. Representative (IL-8, 2005–2011)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Melissa Bean represented a north-suburban U.S. House district (then IL-08) from 2005 to 2011 and later worked in financial-services and business-advocacy roles. Known as a centrist/"New Democrat," she supported business-friendly policies and some deregulatory positions, drawing criticism from the left, but argued her approach helped maintain jobs and competitiveness. She controversially voted against the 9/11 Health and Compensation Act (Zadroga Act). In returning she stresses pragmatic economic management and bipartisan appeal.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-religion">🕊️ Serbian Orthodox</span>
+        <span class="tag tag-scandal">⚠️ Voted against 9/11 Zadroga Act</span>
+        <span class="tag tag-scandal">⚠️ Post-Congress Wall St. / Financial Services ties</span>
+        <span class="tag tag-caution">🔶 Blue Dog / Centrist — criticism from progressives</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     4 · 8TH STATE CENTRAL COMMITTEE
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="scc8">
+  <h2>4 · 8th State Central Committee (Democratic)</h2>
+  <p class="race-note">Democratic Party organizational seats — representing the 8th Congressional District within the state party structure.</p>
+  <div class="card-grid">
+
+    <!-- Cristina Castro -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://futurecaucus.org/wp-content/uploads/2024/01/CastroHeadshot-e1705462255774.jpg" alt="Cristina Castro" onerror="this.outerHTML='<div class=avatar-placeholder>CC</div>'">
+        <div class="card-identity">
+          <h3>Cristina Castro</h3>
+          <span class="role">Illinois State Senator (22nd District)</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Cristina Castro is a Democratic state senator from Elgin, serving since 2017, with a record on issues like workers' rights, environmental policy, and expanding healthcare access. In seeking the party committee seat, she effectively offers continuity between legislative leadership and party infrastructure. Media coverage focuses more on her Senate work than on this internal party race, and there are no notable new controversies tied specifically to this contest.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Serving since 2017</span>
+        <span class="tag tag-info">ℹ️ 22nd District — Elgin / NW Suburbs</span>
+        <span class="tag tag-info">ℹ️ Workers' Rights &amp; Healthcare Access</span>
+      </div>
+    </div>
+
+    <!-- Michael C. Cudzik -->
+    <div class="card">
+      <div class="card-top">
+        <div class="avatar-placeholder">MC</div>
+        <div class="card-identity">
+          <h3>Michael C. Cudzik</h3>
+          <span class="role">Democratic Activist / Party Official</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Michael Cudzik is a Democratic activist and party official appearing on the ballot for 8th State Central Committeeperson. Available information suggests experience within party organizing rather than high-profile elected office. Public sources do not provide a detailed, up-to-date issue platform beyond commitment to electing Democrats, and endorsements or controversies at this level are rarely reported.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited public information — party-level race</span>
+        <span class="tag tag-info">ℹ️ Party Organizing Experience</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     5 · KANE COUNTY CLERK
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="clerk">
+  <h2>5 · Kane County Clerk</h2>
+  <p class="race-note">Democratic primary for Kane County Clerk — responsible for vital records, elections administration, and property tax extensions.</p>
+  <div class="card-grid">
+
+    <!-- Brenda Rodgers -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://imengine.public.prod.pdh.navigacloud.com/?uuid=2030B98D-AEBC-4328-BD72-558448F17A93&type=preview&function=cover&height=609&width=800" alt="Brenda Rodgers" onerror="this.outerHTML='<div class=avatar-placeholder>BR</div>'">
+        <div class="card-identity">
+          <h3>Brenda Rodgers</h3>
+          <span class="role">Candidate for Kane County Clerk</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Brenda Rodgers appears as a Democratic contender for Kane County Clerk, with limited mainstream coverage beyond ballot listings. She is generally framed in local materials as emphasizing voting access, customer service, and transparent record-keeping. Specific programmatic details, high-profile endorsements, or any controversies cannot be reliably stated at this time.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited mainstream coverage</span>
+        <span class="tag tag-info">ℹ️ Voting Access &amp; Transparent Record-Keeping</span>
+      </div>
+    </div>
+
+    <!-- Brian Pollock -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://www.kanedems.org/wp-content/uploads/2026/02/Brian-Pollock.jpg" alt="Brian Pollock" onerror="this.outerHTML='<div class=avatar-placeholder>BP</div>'">
+        <div class="card-identity">
+          <h3>Brian Pollock</h3>
+          <span class="role">Candidate for Kane County Clerk</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Brian Pollock is listed as a Democratic candidate for Kane County Clerk. Public, independently vetted details point to local civic and possibly IT/administrative experience, but not widely known elected office. There is no comprehensive summary of his policy priorities beyond general themes of improving election administration and office efficiency, and no major endorsements or controversies have surfaced in regional media.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited public information available</span>
+        <span class="tag tag-info">ℹ️ Election Administration &amp; Office Efficiency</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     6 · KANE COUNTY SHERIFF
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="sheriff">
+  <h2>6 · Kane County Sheriff</h2>
+  <p class="race-note">Democratic primary for Kane County Sheriff.</p>
+  <div class="card-grid">
+
+    <!-- Salvador Rodriguez -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://imengine.public.prod.pdh.navigacloud.com/?uuid=7cae347e-93a1-52f1-876b-d22c1530af89&type=preview&function=cover&height=609&width=800" alt="Salvador Rodriguez" onerror="this.outerHTML='<div class=avatar-placeholder>SR</div>'">
+        <div class="card-identity">
+          <h3>Salvador Rodriguez</h3>
+          <span class="role">Candidate for Kane County Sheriff</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Salvador Rodriguez shows up on the ballot as a Democratic candidate for Kane County Sheriff, but there is minimal independent reporting on his current or most recent law-enforcement role or detailed public-safety agenda. Where he is mentioned, it is as a law-enforcement professional running on standard Democratic sheriff themes — community policing, accountability, and crime reduction — without documented major endorsements or controversies.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited independent reporting</span>
+        <span class="tag tag-info">ℹ️ Community Policing &amp; Accountability</span>
+      </div>
+    </div>
+
+    <!-- Amy Johnson -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://static.wixstatic.com/media/c78d7d_22ceef200806433eb9f1657e779cd6d3~mv2.webp" alt="Amy Johnson" onerror="this.outerHTML='<div class=avatar-placeholder>AJ</div>'">
+        <div class="card-identity">
+          <h3>Amy Johnson</h3>
+          <span class="role">Candidate for Kane County Sheriff</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Amy Johnson is listed as a Democratic sheriff candidate with scant mainstream coverage. She appears to have a background in law enforcement or corrections, but specifics of her current position, reform proposals, or disciplinary history are not well documented publicly. Without better sources, any fine-grained claims about her priorities or controversies would be speculative.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Very limited public information available</span>
+        <span class="tag tag-info">ℹ️ Law Enforcement / Corrections Background</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     7 · KANE COUNTY TREASURER
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="race-section" id="treasurer">
+  <h2>7 · Kane County Treasurer</h2>
+  <p class="race-note">Democratic primary for Kane County Treasurer — manages county funds, investments, and property tax collections.</p>
+  <div class="card-grid">
+
+    <!-- Penny Wegman -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://imengine.public.prod.pdh.navigacloud.com/?uuid=43730caa-805f-510e-9876-17be8385b5b4&type=preview&function=cover&height=609&width=800" alt="Penny Wegman" onerror="this.outerHTML='<div class=avatar-placeholder>PW</div>'">
+        <div class="card-identity">
+          <h3>Penny Wegman</h3>
+          <span class="role">Kane County Board Member &amp; Former Elgin Township Supervisor</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Penny Wegman is a Kane County Board member and former Elgin Township supervisor who has worked on budgets, social-service funding, and property-tax issues at the local level. In running for treasurer she emphasizes practical experience with public finances, transparency, and using the office to support services while protecting taxpayers. She is better-known locally than some rivals, and there are no widely reported major controversies.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-info">ℹ️ Kane County Board Member</span>
+        <span class="tag tag-info">ℹ️ Former Elgin Township Supervisor</span>
+        <span class="tag tag-info">ℹ️ Budget &amp; Property Tax Experience</span>
+      </div>
+    </div>
+
+    <!-- Scott Johansen -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5LeKlMqEqjMgfHIbhK7Ih6okkoNQCuNiNjA&s" alt="Scott Johansen" onerror="this.outerHTML='<div class=avatar-placeholder>SJ</div>'">
+        <div class="card-identity">
+          <h3>Scott Johansen</h3>
+          <span class="role">Candidate for Kane County Treasurer</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Scott Johansen is a Democratic candidate for Kane County Treasurer whose publicly available profile beyond ballot data is limited. He generally presents himself as a fiscally responsible manager focused on safeguarding county funds, but independent confirmation of his recent professional role, detailed investment philosophy, and endorsements is lacking in major outlets.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 Limited public information available</span>
+        <span class="tag tag-info">ℹ️ Fiscal Responsibility Focus</span>
+      </div>
+    </div>
+
+    <!-- Connie Cain -->
+    <div class="card">
+      <div class="card-top">
+        <img class="card-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK-xElQeHcQTLatg4NVzZU6-tGrtZAqzOkcg&s" alt="Connie Cain" onerror="this.outerHTML='<div class=avatar-placeholder>CC</div>'">
+        <div class="card-identity">
+          <h3>Connie Cain</h3>
+          <span class="role">Former GOP State House Candidate</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Connie Cain is a Republican former state House candidate who appears on the Democratic primary ballot for Kane County Treasurer, which conflicts with prior coverage identifying her as a GOP figure. Public reporting highlights her past campaigns on fiscal conservatism and skepticism of tax and spending increases. The party-label discrepancy is a genuine point of uncertainty and should be verified against official Kane County and Illinois State Board of Elections records.</p>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-caution">🔶 PARTY DISCREPANCY — Prior GOP Candidate</span>
+        <span class="tag tag-scandal">⚠️ On Democratic ballot despite Republican history</span>
+        <span class="tag tag-caution">🔶 Verify with IL State Board of Elections</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <p><strong>Disclaimer:</strong> This report is for informational purposes only and does not constitute an endorsement of any candidate. Information sourced from public records, Wikipedia, and news reports. Last updated February 2026.</p>
+  <p style="margin-top:.4rem;">Built with ❤️ for informed voters.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('div.card-body').forEach(div => {
+    const details = document.createElement('details');
+    details.className = 'card-body';
+    const summary = document.createElement('summary');
+    summary.textContent = 'About';
+    details.appendChild(summary);
+    while (div.firstChild) details.appendChild(div.firstChild);
+    div.replaceWith(details);
+  });
+</script>
+</body>
+</html>
